@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Projects from './Components/Projects';
+import AddProject from './Components/AddProject';
 import './App.css';
 
 class App extends Component {
@@ -26,10 +27,16 @@ class App extends Component {
     ]});
   }
 
+  handleAddProject(project) {
+    let state = this.state;
+    state.projects.push(project);
+    this.setState(state);
+  }
+
   render() {
     return (
       <div className="App">
-        My App
+        <AddProject addProject={this.handleAddProject.bind(this)}/>
         <Projects projects = {this.state.projects}/>
       </div>
     );
