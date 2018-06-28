@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 import Projects from './Components/Projects';
 import AddProject from './Components/AddProject';
 import './App.css';
@@ -13,14 +14,17 @@ class App extends Component {
     this.setState({
       projects: [
       {
+        id: uuid.v4(),
         title: 'Business Website',
         category: 'Web Design'
       },
       {
+        id: uuid.v4(),
         title: 'Social App',
         category: 'Mobile Dev'
       },
       {
+        id: uuid.v4(),
         title: 'Shopping Cart',
         category: 'Web Development'
       }
@@ -33,11 +37,18 @@ class App extends Component {
     this.setState(state);
   }
 
+  handleDeleteProject(id) {
+    let state = this.state;
+    let index = state.projects.findIndex(x => x.id === id);
+    state.projects.splice(index, 1);
+    this.setState(state);
+  }
+
   render() {
     return (
       <div className="App">
         <AddProject addProject={this.handleAddProject.bind(this)}/>
-        <Projects projects = {this.state.projects}/>
+        <Projects projects={this.state.projects} onDelete={this.handleDeleteProject.bind(this)}/>
       </div>
     );
   }
